@@ -22,7 +22,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="671.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="75.0" prefWidth="188.0" style="-fx-background-color: #2980b9; -fx-background-radius: 5;" text="Supplier Info" textFill="#fcfcfc">
+      <Button alignment="CENTER_RIGHT" layoutX="671.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnOrderDetailsOnAction" prefHeight="75.0" prefWidth="188.0" style="-fx-background-color: #2980b9; -fx-background-radius: 5;" text="Order Details" textFill="#fcfcfc">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -42,9 +42,9 @@
             <Image url="@images/user.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="54.0" fitWidth="46.0" layoutX="680.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="680.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/delivery-truck.png" />
+            <Image url="@images/purchase-order.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="263.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">

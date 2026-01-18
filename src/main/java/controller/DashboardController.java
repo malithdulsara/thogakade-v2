@@ -68,18 +68,16 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    void btnSupplierOnAction(ActionEvent event) {
+    void btnOrderDetailsOnAction(ActionEvent event) {
         Stage stage = new Stage();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/supplier_info.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/orderDetails_info.fxml"))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        stage.setTitle("Supplier Information");
+        stage.setTitle("Item Information");
         stage.showAndWait();
         loadCount();
-
-
     }
 
     @Override
