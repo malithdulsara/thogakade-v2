@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,58 +27,24 @@ public class DashboardController implements Initializable {
 
     @FXML
     void btnCustomerOnAction(ActionEvent event) {
-        Stage stage = new Stage();
-        try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/customer_info.fxml"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Customer Information");
-        stage.showAndWait();
-        loadCount();
-
-
+        openWindow("/view/customer_info.fxml", "Customer Information");
     }
 
     @FXML
     void btnOrderOnAction(ActionEvent event) {
-        Stage stage = new Stage();
-        try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/order_info.fxml"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Order Information");
-        stage.showAndWait();
-        loadCount();
+        openWindow("/view/order_info.fxml", "Order Information");
     }
 
 
     @FXML
     void btnItemOnAction(ActionEvent event) {
-        Stage stage = new Stage();
-        try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/item_info.fxml"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Item Information");
-        stage.showAndWait();
-        loadCount();
+        openWindow("/view/item_info.fxml", "Item Information");
 
     }
 
     @FXML
     void btnOrderDetailsOnAction(ActionEvent event) {
-        Stage stage = new Stage();
-        try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/orderDetails_info.fxml"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Item Information");
-        stage.showAndWait();
-        loadCount();
+        openWindow("/view/orderDetails_info.fxml", "Order Details");
     }
 
     @Override
@@ -85,9 +52,10 @@ public class DashboardController implements Initializable {
         loadCount();
     }
 
-    private void loadCount(){
+
+    private void loadCount() {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement stmCustomer = connection.prepareStatement("SELECT COUNT(*) FROM Customer");
             ResultSet rstCustomer = stmCustomer.executeQuery();
             if (rstCustomer.next()) {
@@ -108,9 +76,26 @@ public class DashboardController implements Initializable {
                 lblOrderCount.setText(String.valueOf(rstOrders.getInt(1)));
             }
 
-            connection.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
+
+    private void openWindow(String fxmlPath, String title) {
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxmlPath))));
+            stage.setTitle(title);
+            stage.showAndWait();
+
+
+            loadCount();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 }
