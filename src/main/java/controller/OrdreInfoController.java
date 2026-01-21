@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -48,7 +49,7 @@ public class OrdreInfoController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "INSERT INTO orders (OrderID,OrderDate,CustID)values(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -77,7 +78,7 @@ public class OrdreInfoController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "DELETE FROM orders WHERE OrderID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -104,7 +105,7 @@ public class OrdreInfoController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "UPDATE orders SET OrderDate=?,CustID=? WHERE OrderID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -176,7 +177,7 @@ public class OrdreInfoController implements Initializable {
         orderInfoDtos.clear();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             String sql = "SELECT * FROM orders";
             PreparedStatement statement = connection.prepareStatement(sql);

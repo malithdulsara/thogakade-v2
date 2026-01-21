@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,7 +63,7 @@ public class itemInfoController implements Initializable {
     void btnAddOnAction(ActionEvent event) {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             String sql = "INSERT INTO item (ItemCode,Description,PackSize,UnitPrice,QtyOnHand)" + "VALUES (?,?,?,?,?)";
 
@@ -89,7 +90,7 @@ public class itemInfoController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             String sql = "DELETE FROM Item WHERE ItemCode = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -118,7 +119,7 @@ public class itemInfoController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "UPDATE item SET Description = ? , PackSize =?,UnitPrice = ? ,QtyOnHand = ? WHERE ItemCode = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -190,7 +191,7 @@ public class itemInfoController implements Initializable {
     private void loadTable() {
         itemInfoDtos.clear();
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             String sql = "SELECT * FROM item";
             PreparedStatement statement = connection.prepareStatement(sql);

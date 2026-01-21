@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -83,7 +84,7 @@ public class OrderDetailsInfoController implements Initializable {
     private void loadTable(){
         orderDetailsInfoDtos.clear();
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "SELECT * FROM orderdetail";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -106,7 +107,7 @@ public class OrderDetailsInfoController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "INSERT INTO orderdetail (OrderID,ItemCode,OrderQTY,Discount) VALUES (?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -130,8 +131,7 @@ public class OrderDetailsInfoController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
-            // To update a specific item in an order, we need to match BOTH OrderID and ItemCode
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "UPDATE orderdetail SET OrderQTY = ?, Discount = ? WHERE OrderID = ? AND ItemCode = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -155,8 +155,7 @@ public class OrderDetailsInfoController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
-            // Fixed SQL: You must delete based on OrderID AND ItemCode to be safe
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "DELETE FROM orderdetail WHERE OrderID = ? AND ItemCode = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 

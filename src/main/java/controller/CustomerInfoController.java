@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -151,7 +152,7 @@ public class CustomerInfoController implements Initializable {
     void btnUpdateOnAction(ActionEvent event) {
         if(validateCustomer()){
             try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
+                Connection connection = DBConnection.getInstance().getConnection();
                 String sql ="UPDATE Customer SET CustTitle = ? , CustName =?,DOB = ? ,salary = ?,CustAddress = ?,City =?,Province=?,PostalCode=? WHERE CustID = ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -195,7 +196,7 @@ public class CustomerInfoController implements Initializable {
             JasperDesign jasperDesign = JRXmlLoader.load(reportStream);
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             Map<String, Object> parameters = new HashMap<>();
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
@@ -213,7 +214,7 @@ public class CustomerInfoController implements Initializable {
     private void loadCustomerData() {
         customerInfoDtos.clear();
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             String sql = "SELECT * FROM customer";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
